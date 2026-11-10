@@ -1,0 +1,1147 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+  <meta name="apple-mobile-web-app-title" content="OratorStudio" />
+  <meta name="theme-color" content="#0B0F19" />
+  <title>OratorStudio — Interactive Public Speaking Coach & Practice Lab</title>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; font-family: -apple-system, BlinkMacSystemFont, 'Inter', 'Segoe UI', Roboto, sans-serif; background-color: #0B0F19; color: #F8FAFC; }
+    body { min-height: 100vh; display: flex; flex-direction: column; background-color: #0B0F19; color: #F8FAFC; overflow-x: hidden; line-height: 1.5; }
+    button, input, select, textarea { font-family: inherit; color: inherit; }
+    button { cursor: pointer; background: none; border: none; }
+    .hidden { display: none !important; }
+    .min-h-screen { min-height: 100vh; }
+    .flex { display: flex; }
+    .inline-flex { display: inline-flex; }
+    .grid { display: grid; }
+    .flex-col { flex-direction: column; }
+    .flex-wrap { flex-wrap: wrap; }
+    .flex-1 { flex: 1 1 0%; }
+    .shrink-0 { flex-shrink: 0; }
+    .items-center { align-items: center; }
+    .items-start { align-items: flex-start; }
+    .items-baseline { align-items: baseline; }
+    .justify-between { justify-content: space-between; }
+    .justify-center { justify-content: center; }
+    .justify-end { justify-content: flex-end; }
+    .gap-1 { gap: 0.25rem; }
+    .gap-1\.5 { gap: 0.375rem; }
+    .gap-2 { gap: 0.5rem; }
+    .gap-2\.5 { gap: 0.625rem; }
+    .gap-3 { gap: 0.75rem; }
+    .gap-4 { gap: 1rem; }
+    .gap-5 { gap: 1.25rem; }
+    .gap-6 { gap: 1.5rem; }
+    .space-y-1 > * + * { margin-top: 0.25rem; }
+    .space-y-1\.5 > * + * { margin-top: 0.375rem; }
+    .space-y-2 > * + * { margin-top: 0.5rem; }
+    .space-y-2\.5 > * + * { margin-top: 0.625rem; }
+    .space-y-3 > * + * { margin-top: 0.75rem; }
+    .space-y-4 > * + * { margin-top: 1rem; }
+    .space-y-5 > * + * { margin-top: 1.25rem; }
+    .space-y-6 > * + * { margin-top: 1.5rem; }
+    .space-y-8 > * + * { margin-top: 2rem; }
+    .max-w-7xl { max-width: 80rem; }
+    .max-w-3xl { max-width: 48rem; }
+    .max-w-2xl { max-width: 42rem; }
+    .max-w-lg { max-width: 32rem; }
+    .max-w-md { max-width: 28rem; }
+    .max-w-sm { max-width: 24rem; }
+    .max-w-xs { max-width: 20rem; }
+    .max-w-full { max-width: 100%; }
+    .w-full { width: 100%; }
+    .h-full { height: 100%; }
+    .w-4 { width: 1rem; } .h-4 { height: 1rem; }
+    .w-5 { width: 1.25rem; } .h-5 { height: 1.25rem; }
+    .w-6 { width: 1.5rem; } .h-6 { height: 1.5rem; }
+    .w-10 { width: 2.5rem; } .h-10 { height: 2.5rem; }
+    .w-16 { width: 4rem; } .w-20 { width: 5rem; }
+    .w-28 { width: 7rem; } .h-28 { height: 7rem; }
+    .w-52 { width: 13rem; } .h-52 { height: 13rem; }
+    .h-2 { height: 0.5rem; } .h-3 { height: 0.75rem; } .h-16 { height: 4rem; } .h-64 { height: 16rem; }
+    .max-h-56 { max-height: 14rem; }
+    .min-h-\[34px\] { min-height: 34px; }
+    .min-h-\[120px\] { min-height: 120px; }
+    .min-h-\[260px\] { min-height: 260px; }
+    .min-w-\[92px\] { min-width: 92px; }
+    .mx-auto { margin-left: auto; margin-right: auto; }
+    .mx-1\.5 { margin-left: 0.375rem; margin-right: 0.375rem; }
+    .my-2 { margin-top: 0.5rem; margin-bottom: 0.5rem; }
+    .mt-0\.5 { margin-top: 0.125rem; } .mt-1 { margin-top: 0.25rem; } .mt-2 { margin-top: 0.5rem; } .mt-3 { margin-top: 0.75rem; } .mt-6 { margin-top: 1.5rem; } .mt-12 { margin-top: 3rem; }
+    .mb-1 { margin-bottom: 0.25rem; } .mb-2 { margin-bottom: 0.5rem; } .ml-1 { margin-left: 0.25rem; } .ml-2 { margin-left: 0.5rem; }
+    .p-1 { padding: 0.25rem; } .p-1\.5 { padding: 0.375rem; } .p-2 { padding: 0.5rem; } .p-2\.5 { padding: 0.625rem; } .p-3 { padding: 0.75rem; } .p-3\.5 { padding: 0.875rem; } .p-4 { padding: 1rem; } .p-5 { padding: 1.25rem; } .p-6 { padding: 1.5rem; }
+    .px-1 { padding-left: 0.25rem; padding-right: 0.25rem; }
+    .px-1\.5 { padding-left: 0.375rem; padding-right: 0.375rem; }
+    .px-2 { padding-left: 0.5rem; padding-right: 0.5rem; }
+    .px-2\.5 { padding-left: 0.625rem; padding-right: 0.625rem; }
+    .px-3 { padding-left: 0.75rem; padding-right: 0.75rem; }
+    .px-3\.5 { padding-left: 0.875rem; padding-right: 0.875rem; }
+    .px-4 { padding-left: 1rem; padding-right: 1rem; }
+    .px-5 { padding-left: 1.25rem; padding-right: 1.25rem; }
+    .py-0\.5 { padding-top: 0.125rem; padding-bottom: 0.125rem; }
+    .py-1 { padding-top: 0.25rem; padding-bottom: 0.25rem; }
+    .py-1\.5 { padding-top: 0.375rem; padding-bottom: 0.375rem; }
+    .py-2 { padding-top: 0.5rem; padding-bottom: 0.5rem; }
+    .py-2\.5 { padding-top: 0.625rem; padding-bottom: 0.625rem; }
+    .py-3 { padding-top: 0.75rem; padding-bottom: 0.75rem; }
+    .py-5 { padding-top: 1.25rem; padding-bottom: 1.25rem; }
+    .py-6 { padding-top: 1.5rem; padding-bottom: 1.5rem; }
+    .pt-1 { padding-top: 0.25rem; } .pt-2 { padding-top: 0.5rem; } .pt-3 { padding-top: 0.75rem; } .pt-4 { padding-top: 1rem; }
+    .pb-3 { padding-bottom: 0.75rem; } .pb-4 { padding-bottom: 1rem; } .pb-6 { padding-bottom: 1.5rem; } .pl-5 { padding-left: 1.25rem; }
+    .sticky { position: sticky; } .relative { position: relative; } .absolute { position: absolute; } .fixed { position: fixed; }
+    .inset-0 { top: 0; right: 0; bottom: 0; left: 0; } .inset-y-0 { top: 0; bottom: 0; }
+    .top-0 { top: 0; } .bottom-5 { bottom: 1.25rem; } .right-5 { right: 1.25rem; }
+    .z-10 { z-index: 10; } .z-40 { z-index: 40; } .z-50 { z-index: 50; }
+    .rounded { border-radius: 0.25rem; } .rounded-lg { border-radius: 0.5rem; } .rounded-xl { border-radius: 0.75rem; } .rounded-2xl { border-radius: 1rem; } .rounded-3xl { border-radius: 1.5rem; } .rounded-full { border-radius: 9999px; }
+    .border { border: 1px solid #1E293B; } .border-2 { border: 2px solid #1E293B; } .border-t { border-top: 1px solid #1E293B; } .border-b { border-bottom: 1px solid #1E293B; } .border-x { border-left: 1px solid; border-right: 1px solid; } .border-dashed { border-style: dashed; }
+    .border-slate-800, .border-slate-800\/80 { border-color: rgba(30, 41, 59, 0.85); }
+    .border-slate-700 { border-color: #334155; }
+    .border-orange-400 { border-color: #FB923C; }
+    .border-orange-500 { border-color: #F97316; }
+    .border-orange-500\/30, .border-orange-500\/40, .border-orange-500\/50 { border-color: rgba(249, 115, 22, 0.4); }
+    .border-emerald-400 { border-color: #34D399; }
+    .border-emerald-500\/20, .border-emerald-500\/30, .border-emerald-500\/40, .border-emerald-500\/50, .border-emerald-500\/60 { border-color: rgba(16, 185, 129, 0.45); }
+    .border-amber-500\/20, .border-amber-500\/30, .border-amber-500\/40, .border-amber-500\/60 { border-color: rgba(245, 158, 11, 0.45); }
+    .border-rose-500\/20, .border-rose-500\/30, .border-rose-500\/40, .border-rose-500\/50, .border-rose-500\/70 { border-color: rgba(244, 63, 94, 0.45); }
+    .border-indigo-500\/30, .border-indigo-500\/40 { border-color: rgba(99, 102, 241, 0.4); }
+    .bg-slate-950, .bg-slate-950\/80, .bg-slate-950\/85, .bg-slate-950\/90 { background-color: rgba(2, 6, 23, 0.92); }
+    .bg-slate-900, .bg-slate-900\/70, .bg-slate-900\/80, .bg-slate-900\/90, .bg-slate-900\/95 { background-color: rgba(15, 23, 42, 0.9); }
+    .bg-slate-800, .bg-slate-800\/90 { background-color: #1E293B; }
+    .bg-orange-500 { background-color: #F97316; }
+    .bg-orange-500\/15, .bg-orange-500\/20 { background-color: rgba(249, 115, 22, 0.18); }
+    .bg-emerald-400 { background-color: #34D399; }
+    .bg-emerald-500 { background-color: #10B981; }
+    .bg-emerald-500\/15, .bg-emerald-500\/20, .bg-emerald-500\/25, .bg-emerald-950\/30, .bg-emerald-950\/50 { background-color: rgba(16, 185, 129, 0.18); }
+    .bg-emerald-950 { background-color: #022C22; }
+    .bg-amber-400 { background-color: #FBBF24; }
+    .bg-amber-500\/15, .bg-amber-500\/20, .bg-amber-500\/30, .bg-amber-950\/30 { background-color: rgba(245, 158, 11, 0.2); }
+    .bg-amber-950 { background-color: #451A03; }
+    .bg-rose-500 { background-color: #F43F5E; }
+    .bg-rose-500\/15, .bg-rose-500\/20, .bg-rose-500\/25, .bg-rose-500\/30, .bg-rose-950\/30, .bg-rose-950\/50 { background-color: rgba(244, 63, 94, 0.2); }
+    .bg-rose-950 { background-color: #4C0519; }
+    .bg-indigo-500 { background-color: #6366F1; }
+    .bg-indigo-500\/15, .bg-indigo-500\/20, .bg-indigo-500\/30, .bg-indigo-950\/30, .bg-indigo-950\/40 { background-color: rgba(99, 102, 241, 0.22); }
+    .bg-gradient-to-r { background-image: linear-gradient(to right, #F97316, #F59E0B); }
+    .bg-gradient-to-br { background-image: linear-gradient(to bottom right, #F97316, #F59E0B); }
+    .from-slate-900 { background-image: linear-gradient(135deg, #0F172A 0%, #1E1B4B 100%); }
+    .from-emerald-500\/30 { background-image: linear-gradient(135deg, rgba(16,185,129,0.3), rgba(20,184,166,0.3)); }
+    .text-transparent { color: #FB923C; }
+    .text-white { color: #FFFFFF; }
+    .text-slate-100 { color: #F1F5F9; }
+    .text-slate-200 { color: #E2E8F0; }
+    .text-slate-300 { color: #CBD5E1; }
+    .text-slate-400 { color: #94A3B8; }
+    .text-slate-500 { color: #64748B; }
+    .text-slate-950 { color: #020617; }
+    .text-orange-300 { color: #FDBA74; }
+    .text-orange-400 { color: #FB923C; }
+    .text-amber-200 { color: #FDE68A; }
+    .text-amber-300 { color: #FCD34D; }
+    .text-amber-400 { color: #FBBF24; }
+    .text-emerald-200 { color: #A7F3D0; }
+    .text-emerald-300 { color: #6EE7B7; }
+    .text-emerald-400 { color: #34D399; }
+    .text-rose-200 { color: #FECDD3; }
+    .text-rose-300 { color: #FDA4AF; }
+    .text-rose-400 { color: #FB7185; }
+    .text-indigo-200 { color: #C7D2FE; }
+    .text-indigo-300 { color: #A5B4FC; }
+    .text-indigo-400 { color: #818CF8; }
+    .text-\[10px\] { font-size: 10px; }
+    .text-\[11px\] { font-size: 11px; }
+    .text-xs { font-size: 0.75rem; }
+    .text-sm { font-size: 0.875rem; }
+    .text-base { font-size: 1rem; }
+    .text-lg { font-size: 1.125rem; }
+    .text-xl { font-size: 1.25rem; }
+    .text-2xl { font-size: 1.5rem; }
+    .text-3xl { font-size: 1.875rem; }
+    .font-medium { font-weight: 500; }
+    .font-semibold { font-weight: 600; }
+    .font-bold { font-weight: 700; }
+    .font-extrabold { font-weight: 800; }
+    .font-mono { font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace; }
+    .italic { font-style: italic; }
+    .underline { text-decoration: underline; }
+    .line-through { text-decoration: line-through; }
+    .uppercase { text-transform: uppercase; }
+    .tracking-tight { letter-spacing: -0.025em; }
+    .tracking-wide { letter-spacing: 0.025em; }
+    .tracking-wider { letter-spacing: 0.05em; }
+    .leading-tight { line-height: 1.2; }
+    .leading-snug { line-height: 1.35; }
+    .leading-relaxed { line-height: 1.625; }
+    .text-left { text-align: left; }
+    .text-center { text-align: center; }
+    .whitespace-pre-line { white-space: pre-line; }
+    .overflow-hidden { overflow: hidden; }
+    .overflow-y-auto { overflow-y: auto; }
+    .overflow-x-auto { overflow-x: auto; }
+    .resize-y { resize: vertical; }
+    .list-disc { list-style-type: disc; }
+    .glass-card { background: rgba(30, 41, 59, 0.65); backdrop-filter: blur(12px); border: 1px solid rgba(148, 163, 184, 0.14); }
+    .glass-panel { background: rgba(15, 23, 42, 0.88); backdrop-filter: blur(16px); border-bottom: 1px solid rgba(148, 163, 184, 0.16); }
+    .breath-circle { transition: transform 4s ease-in-out, background-color 1s ease, box-shadow 1s ease; }
+    .transition, .transition-all, .transition-colors { transition: all 0.2s ease; }
+    .shadow, .shadow-lg, .shadow-2xl { box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.4); }
+    .grid-cols-1 { grid-template-columns: repeat(1, minmax(0, 1fr)); }
+    .grid-cols-2 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    .grid-cols-3 { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+    @media (min-width: 640px) {
+      .sm\:inline, .sm\:inline-block { display: inline-block; }
+      .sm\:block { display: block; }
+      .sm\:flex { display: flex; }
+      .sm\:flex-row { flex-direction: row; }
+      .sm\:items-center { align-items: center; }
+      .sm\:grid-cols-2 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+      .sm\:grid-cols-3 { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+      .sm\:grid-cols-4 { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+      .sm\:grid-cols-12 { grid-template-columns: repeat(12, minmax(0, 1fr)); }
+      .sm\:col-span-5 { grid-column: span 5 / span 5; }
+      .sm\:col-span-7 { grid-column: span 7 / span 7; }
+      .sm\:p-6 { padding: 1.5rem; } .sm\:p-7 { padding: 1.75rem; } .sm\:p-8 { padding: 2rem; } .sm\:p-10 { padding: 2.5rem; }
+      .sm\:px-6 { padding-left: 1.5rem; padding-right: 1.5rem; }
+      .sm\:py-8 { padding-top: 2rem; padding-bottom: 2rem; }
+      .sm\:text-sm { font-size: 0.875rem; } .sm\:text-base { font-size: 1rem; } .sm\:text-2xl { font-size: 1.5rem; } .sm\:text-3xl { font-size: 1.875rem; } .sm\:text-4xl { font-size: 2.25rem; }
+    }
+    @media (min-width: 768px) {
+      .md\:flex { display: flex !important; }
+      .md\:hidden { display: none !important; }
+      .md\:flex-row { flex-direction: row; }
+      .md\:items-center { align-items: center; }
+      .md\:grid-cols-2 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+      .md\:grid-cols-3 { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+    }
+    @media (min-width: 1024px) {
+      .lg\:flex-row { flex-direction: row; }
+      .lg\:items-center { align-items: center; }
+      .lg\:grid-cols-4 { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+      .lg\:grid-cols-12 { grid-template-columns: repeat(12, minmax(0, 1fr)); }
+      .lg\:col-span-4 { grid-column: span 4 / span 4; }
+      .lg\:col-span-5 { grid-column: span 5 / span 5; }
+      .lg\:col-span-7 { grid-column: span 7 / span 7; }
+      .lg\:col-span-8 { grid-column: span 8 / span 8; }
+      .lg\:px-8 { padding-left: 2rem; padding-right: 2rem; }
+      .lg\:text-5xl { font-size: 3rem; }
+    }
+  </style>
+</head>
+<body class="min-h-screen flex flex-col">
+
+  <!-- Top Navigation -->
+  <header class="sticky top-0 z-40 glass-panel border-b border-slate-800/80">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between gap-3">
+      <div class="flex items-center gap-3">
+        <div class="w-10 h-10 rounded-xl bg-gradient-to-br flex items-center justify-center shadow-lg">
+          <svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M12 18.75a6 6 0 006-6v-1.5m-6 7.5a6 6 0 01-6-6v-1.5m6 7.5v3.75m-3.75 0h7.5M12 15.75a3 3 0 01-3-3V4.5a3 3 0 116 0v8.25a3 3 0 01-3 3z" />
+          </svg>
+        </div>
+        <div>
+          <span class="font-bold text-lg tracking-tight text-white">Orator<span class="text-orange-400">Studio</span></span>
+          <span class="hidden sm:inline-block ml-2 text-xs px-2 py-0.5 rounded-full bg-orange-500/15 text-orange-300 border border-orange-500/30 font-medium">Public Speaking Lab</span>
+        </div>
+      </div>
+
+      <!-- Main Navigation Tabs -->
+      <nav class="hidden md:flex items-center gap-1 bg-slate-900/90 p-1 rounded-xl border border-slate-800" aria-label="Main Navigation">
+        <button type="button" onclick="switchTab('dashboard')" id="nav-dashboard" class="nav-btn px-3.5 py-1.5 rounded-lg text-sm font-medium transition-all bg-orange-500 text-white shadow">
+          Dashboard
+        </button>
+        <button type="button" onclick="switchTab('curriculum')" id="nav-curriculum" class="nav-btn px-3.5 py-1.5 rounded-lg text-sm font-medium transition-all text-slate-300">
+          6-Module Academy
+        </button>
+        <button type="button" onclick="switchTab('analyzer')" id="nav-analyzer" class="nav-btn px-3.5 py-1.5 rounded-lg text-sm font-medium transition-all text-slate-300">
+          Speech &amp; Pace Lab
+        </button>
+        <button type="button" onclick="switchTab('impromptu')" id="nav-impromptu" class="nav-btn px-3.5 py-1.5 rounded-lg text-sm font-medium transition-all text-slate-300">
+          Impromptu Arena
+        </button>
+        <button type="button" onclick="switchTab('architect')" id="nav-architect" class="nav-btn px-3.5 py-1.5 rounded-lg text-sm font-medium transition-all text-slate-300">
+          Speech Builder
+        </button>
+        <button type="button" onclick="switchTab('warmup')" id="nav-warmup" class="nav-btn px-3.5 py-1.5 rounded-lg text-sm font-medium transition-all text-slate-300">
+          Vocal &amp; Calm Gym
+        </button>
+      </nav>
+
+      <!-- User Profile, XP & Audio Status -->
+      <div class="flex items-center gap-2.5">
+        <button type="button" id="user-profile-btn" onclick="openLoginModal()" class="flex items-center gap-2 px-3 py-1.5 rounded-xl bg-slate-900 border border-slate-700 text-xs font-semibold text-white transition" title="Speaker Profile & Login">
+          <span id="user-avatar-badge" class="w-5 h-5 rounded-full bg-gradient-to-br text-slate-950 font-extrabold flex items-center justify-center text-[10px]">👤</span>
+          <span id="header-username">Sign In</span>
+        </button>
+        <div class="hidden sm:flex items-center gap-2 px-3 py-1.5 rounded-xl bg-slate-900 border border-slate-800 text-xs font-semibold">
+          <span class="text-amber-400">★</span>
+          <span id="header-xp">0 XP</span>
+          <span class="text-slate-500">|</span>
+          <span id="header-level" class="text-emerald-400">Lv. 1 Rising Speaker</span>
+        </div>
+        <button type="button" id="ios-install-btn" onclick="openIosModal()" class="px-2.5 py-1.5 rounded-xl bg-orange-500/15 border border-orange-500/30 text-orange-300 text-xs font-semibold transition flex items-center gap-1" title="How to install on iPhone & Mac">
+          <span>📱</span>
+          <span class="hidden sm:inline">iPhone App</span>
+        </button>
+        <button type="button" id="sound-toggle-btn" onclick="toggleSoundMute()" class="p-2 rounded-xl bg-slate-900 border border-slate-800 text-slate-300 transition" title="Toggle Audio Chimes">
+          <span id="sound-icon">🔊</span>
+        </button>
+      </div>
+    </div>
+
+    <!-- Mobile Navigation Bar -->
+    <div class="md:hidden flex items-center gap-1 overflow-x-auto px-3 py-2 border-t border-slate-800/80 bg-slate-950/90">
+      <button type="button" onclick="switchTab('dashboard')" id="mnav-dashboard" class="mnav-btn shrink-0 px-3 py-1.5 rounded-lg text-xs font-semibold bg-orange-500 text-white">Overview</button>
+      <button type="button" onclick="switchTab('curriculum')" id="mnav-curriculum" class="mnav-btn shrink-0 px-3 py-1.5 rounded-lg text-xs font-semibold text-slate-300">Academy</button>
+      <button type="button" onclick="switchTab('analyzer')" id="mnav-analyzer" class="mnav-btn shrink-0 px-3 py-1.5 rounded-lg text-xs font-semibold text-slate-300">Speech Lab</button>
+      <button type="button" onclick="switchTab('impromptu')" id="mnav-impromptu" class="mnav-btn shrink-0 px-3 py-1.5 rounded-lg text-xs font-semibold text-slate-300">Impromptu</button>
+      <button type="button" onclick="switchTab('architect')" id="mnav-architect" class="mnav-btn shrink-0 px-3 py-1.5 rounded-lg text-xs font-semibold text-slate-300">Builder</button>
+      <button type="button" onclick="switchTab('warmup')" id="mnav-warmup" class="mnav-btn shrink-0 px-3 py-1.5 rounded-lg text-xs font-semibold text-slate-300">Warm-Up</button>
+    </div>
+  </header>
+
+  <!-- Main Content Container -->
+  <main class="flex-1 max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-6 sm:py-8">
+
+    <!-- ==================== TAB 1: DASHBOARD ==================== -->
+    <section id="tab-dashboard" class="space-y-8">
+      <!-- Hero Banner -->
+      <div class="relative rounded-3xl overflow-hidden border border-slate-800 from-slate-900 shadow-2xl">
+        <div class="grid grid-cols-1 lg:grid-cols-12 items-center">
+          <div class="p-6 sm:p-10 lg:col-span-7 space-y-5 z-10">
+            <div class="flex flex-wrap items-center gap-2">
+              <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-orange-500/15 border border-orange-500/30 text-orange-300 text-xs font-semibold tracking-wide uppercase">
+                <span id="hero-user-greeting">🎙️ Speak With Clarity, Conviction &amp; Calm</span>
+              </div>
+              <button type="button" onclick="openLoginModal()" class="text-xs px-2.5 py-1 rounded-full bg-slate-800/90 text-slate-300 border border-slate-700 transition">
+                <span id="hero-switch-user-label">✎ Set Speaker Name</span>
+              </button>
+            </div>
+            <h1 class="text-3xl sm:text-4xl lg:text-5xl font-extrabold tracking-tight text-white leading-tight">
+              Master the Art of <span class="text-transparent">Public Speaking</span>
+            </h1>
+            <p class="text-slate-300 text-base sm:text-lg leading-relaxed max-w-2xl">
+              Great speakers aren't born—they train systematically. Practice vocal pacing, eliminate filler words, structure persuasive stories, and conquer stage nerves with interactive studio tools.
+            </p>
+            <div class="flex flex-wrap items-center gap-3 pt-2">
+              <button type="button" onclick="switchTab('analyzer')" class="px-5 py-3 rounded-xl bg-gradient-to-r text-white font-semibold text-sm shadow-lg transition flex items-center gap-2">
+                <span>Launch Speech &amp; Pace Lab</span>
+                <span>→</span>
+              </button>
+              <button type="button" onclick="switchTab('curriculum')" class="px-5 py-3 rounded-xl bg-slate-800/90 text-slate-100 font-semibold text-sm border border-slate-700 transition">
+                Start 6-Module Course
+              </button>
+              <button type="button" onclick="startQuickDailyDrill()" class="px-4 py-3 rounded-xl bg-indigo-500/15 text-indigo-300 font-semibold text-sm border border-indigo-500/30 transition">
+                ⚡ 60s Daily Drill
+              </button>
+            </div>
+          </div>
+          <!-- Self-Contained Stage Spotlight SVG Illustration -->
+          <div class="lg:col-span-5 relative h-64 lg:h-full min-h-[260px] flex items-center justify-center bg-slate-950">
+            <svg viewBox="0 0 800 500" class="w-full h-full max-w-full" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Confident speaker on stage under warm spotlight">
+              <defs>
+                <linearGradient id="spotBeam" x1="0.5" y1="0" x2="0.5" y2="1">
+                  <stop offset="0%" stop-color="#FB923C" stop-opacity="0.55" />
+                  <stop offset="65%" stop-color="#F97316" stop-opacity="0.18" />
+                  <stop offset="100%" stop-color="#0B0F19" stop-opacity="0" />
+                </linearGradient>
+                <radialGradient id="stageGlow" cx="0.5" cy="0.85" r="0.45">
+                  <stop offset="0%" stop-color="#FB923C" stop-opacity="0.45" />
+                  <stop offset="100%" stop-color="#0B0F19" stop-opacity="0" />
+                </radialGradient>
+              </defs>
+              <rect width="800" height="500" fill="#0B0F19" />
+              <path d="M90 430 L90 150 Q210 175 230 430 Z" fill="#1E293B" opacity="0.65" />
+              <path d="M580 430 L610 130 Q720 165 720 430 Z" fill="#1E293B" opacity="0.65" />
+              <polygon points="310,0 490,0 650,440 150,440" fill="url(#spotBeam)" />
+              <ellipse cx="400" cy="435" rx="220" ry="28" fill="url(#stageGlow)" />
+              <circle cx="445" cy="215" r="42" fill="none" stroke="#FB923C" stroke-width="2" stroke-opacity="0.55" />
+              <circle cx="445" cy="215" r="76" fill="none" stroke="#F97316" stroke-width="2" stroke-opacity="0.35" />
+              <circle cx="445" cy="215" r="114" fill="none" stroke="#FB923C" stroke-width="1.5" stroke-opacity="0.2" />
+              <path d="M480 215 Q560 175 630 215 T770 215" fill="none" stroke="#FB923C" stroke-width="3" stroke-opacity="0.5" />
+              <line x1="452" y1="222" x2="452" y2="432" stroke="#F8FAFC" stroke-width="5" />
+              <ellipse cx="452" cy="434" rx="34" ry="7" fill="#F97316" />
+              <rect x="438" y="198" width="28" height="16" rx="8" transform="rotate(25 452 206)" fill="#F97316" />
+              <circle cx="385" cy="162" r="26" fill="#FDBA74" />
+              <path d="M362 152 Q385 125 408 148 Q414 160 398 164 Q375 162 362 152 Z" fill="#1E293B" />
+              <path d="M342 205 Q385 192 418 212 L435 268 L478 242 L485 256 L432 292 L412 260 L416 318 L434 430 L402 430 L384 335 L362 430 L332 430 L352 312 L336 248 Z" fill="#1E293B" stroke="#FB923C" stroke-width="2" stroke-opacity="0.4" />
+            </svg>
+          </div>
+        </div>
+      </div>
+
+      <!-- Live Skill Metrics Row -->
+      <div class="grid grid-cols-2 lg:grid-cols-4 gap-4">
+        <div class="glass-card rounded-2xl p-5">
+          <div class="flex items-center justify-between text-xs font-medium text-slate-400">
+            <span>MODULES MASTERED</span>
+            <span class="text-orange-400 font-bold">📚 Course</span>
+          </div>
+          <div class="mt-2 flex items-baseline gap-2">
+            <span id="stat-modules-done" class="text-2xl sm:text-3xl font-extrabold text-white">0 / 6</span>
+            <span id="stat-modules-pct" class="text-xs text-emerald-400 font-medium">0% complete</span>
+          </div>
+          <div class="mt-3 w-full h-2 rounded-full bg-slate-800 overflow-hidden">
+            <div id="stat-modules-bar" class="h-full bg-gradient-to-r transition-all" style="width: 0%"></div>
+          </div>
+        </div>
+
+        <div class="glass-card rounded-2xl p-5">
+          <div class="flex items-center justify-between text-xs font-medium text-slate-400">
+            <span>TARGET SPEAKING PACE</span>
+            <span class="text-indigo-400 font-bold">⏱️ WPM</span>
+          </div>
+          <div class="mt-2 flex items-baseline gap-2">
+            <span id="stat-last-wpm" class="text-2xl sm:text-3xl font-extrabold text-white">142</span>
+            <span class="text-xs text-slate-400">WPM (Sweet Spot: 130–160)</span>
+          </div>
+          <p id="stat-wpm-status" class="mt-2 text-xs text-emerald-400">✓ Optimal conversational cadence</p>
+        </div>
+
+        <div class="glass-card rounded-2xl p-5">
+          <div class="flex items-center justify-between text-xs font-medium text-slate-400">
+            <span>FILLER WORD RATIO</span>
+            <span class="text-amber-400 font-bold">🎯 Clarity</span>
+          </div>
+          <div class="mt-2 flex items-baseline gap-2">
+            <span id="stat-filler-rate" class="text-2xl sm:text-3xl font-extrabold text-white">0.0%</span>
+            <span class="text-xs text-slate-400">Goal: &lt; 2.0%</span>
+          </div>
+          <p class="mt-2 text-xs text-slate-300">Replace "um/uh" with a 2-sec pause</p>
+        </div>
+
+        <div class="glass-card rounded-2xl p-5">
+          <div class="flex items-center justify-between text-xs font-medium text-slate-400">
+            <span>PRACTICE SESSIONS</span>
+            <span class="text-emerald-400 font-bold">🔥 Reps</span>
+          </div>
+          <div class="mt-2 flex items-baseline gap-2">
+            <span id="stat-sessions-count" class="text-2xl sm:text-3xl font-extrabold text-white">0</span>
+            <span class="text-xs text-emerald-400">Logged in studio</span>
+          </div>
+          <p class="mt-2 text-xs text-slate-300">Consistent reps build stage confidence</p>
+        </div>
+      </div>
+
+      <!-- Interactive Diagnostic: What's Your #1 Speaking Goal Today? -->
+      <div class="glass-card rounded-3xl p-6 sm:p-8">
+        <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 pb-6 border-b border-slate-800">
+          <div>
+            <span class="text-xs font-bold uppercase tracking-wider text-orange-400">Personalized Coaching Path</span>
+            <h2 class="text-xl sm:text-2xl font-bold text-white mt-1">What speaking challenge do you want to fix right now?</h2>
+          </div>
+          <span class="text-xs text-slate-400">Select a challenge for an instant action plan &amp; recommended tool</span>
+        </div>
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3 mt-6">
+          <button type="button" onclick="selectChallenge('nerves')" id="chal-btn-nerves" class="chal-btn text-left p-4 rounded-2xl border transition-all bg-orange-500/15 border-orange-500/50">
+            <div class="text-2xl mb-2">💓</div>
+            <div class="font-bold text-white text-sm">Racing Heart &amp; Stage Fright</div>
+            <div class="text-xs text-slate-300 mt-1">Shaky voice, blanking out, or anxiety before speaking</div>
+          </button>
+
+          <button type="button" onclick="selectChallenge('fillers')" id="chal-btn-fillers" class="chal-btn text-left p-4 rounded-2xl border transition-all bg-slate-900/70 border-slate-800">
+            <div class="text-2xl mb-2">🛑</div>
+            <div class="font-bold text-white text-sm">Too Many "Ums" &amp; Rushing</div>
+            <div class="text-xs text-slate-300 mt-1">Speaking too fast or filling every silence with "um, like, so"</div>
+          </button>
+
+          <button type="button" onclick="selectChallenge('rambling')" id="chal-btn-rambling" class="chal-btn text-left p-4 rounded-2xl border transition-all bg-slate-900/70 border-slate-800">
+            <div class="text-2xl mb-2">🧭</div>
+            <div class="font-bold text-white text-sm">Rambling &amp; Losing Structure</div>
+            <div class="text-xs text-slate-300 mt-1">Struggling to get to the point in meetings or Q&amp;A</div>
+          </button>
+
+          <button type="button" onclick="selectChallenge('monotone')" id="chal-btn-monotone" class="chal-btn text-left p-4 rounded-2xl border transition-all bg-slate-900/70 border-slate-800">
+            <div class="text-2xl mb-2">🎵</div>
+            <div class="font-bold text-white text-sm">Flat or Monotone Delivery</div>
+            <div class="text-xs text-slate-300 mt-1">Audience loses attention because every sentence sounds the same</div>
+          </button>
+        </div>
+
+        <!-- Dynamic Prescription Box -->
+        <div id="challenge-prescription" class="mt-6 p-5 sm:p-6 rounded-2xl bg-slate-900/90 border border-slate-800 flex flex-col lg:flex-row items-start lg:items-center justify-between gap-6">
+          <div class="space-y-2 max-w-3xl">
+            <div class="inline-flex items-center gap-2 text-xs font-bold uppercase tracking-wider text-amber-400">
+              <span id="presc-badge">COACH'S PRESCRIPTION: STAGE FRIGHT &amp; ADRENALINE</span>
+            </div>
+            <h3 id="presc-title" class="text-lg font-bold text-white">Reset Your Vagus Nerve in 60 Seconds + Reframe Adrenaline</h3>
+            <p id="presc-desc" class="text-sm text-slate-300 leading-relaxed">
+              Your body produces the exact same hormone (adrenaline) for fear and excitement. Instead of trying to "calm down" (which fights biology), tell yourself <strong>"My body is energized to perform"</strong> and slow your exhale with 4-4-4-4 Box Breathing to lower your heart rate before stepping up.
+            </p>
+            <div id="presc-tips" class="flex flex-wrap gap-2 pt-1">
+              <span class="text-xs px-2.5 py-1 rounded-lg bg-slate-800 text-slate-200">1. Do 3 rounds of Box Breathing</span>
+              <span class="text-xs px-2.5 py-1 rounded-lg bg-slate-800 text-slate-200">2. Memorize only your first 2 sentences cold</span>
+              <span class="text-xs px-2.5 py-1 rounded-lg bg-slate-800 text-slate-200">3. Find 3 friendly faces in the room</span>
+            </div>
+          </div>
+          <button type="button" id="presc-action-btn" onclick="switchTab('warmup')" class="shrink-0 px-5 py-3 rounded-xl bg-orange-500 text-white font-semibold text-sm transition shadow-lg">
+            Open Vocal &amp; Calm Gym →
+          </button>
+        </div>
+      </div>
+
+      <!-- Golden Rules Cheat Sheet Grid -->
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-5">
+        <div class="glass-card rounded-2xl p-6 space-y-3">
+          <div class="w-10 h-10 rounded-xl bg-orange-500/15 border border-orange-500/30 flex items-center justify-center text-orange-400 font-bold">01</div>
+          <h3 class="text-lg font-bold text-white">The 2-Second Power Pause</h3>
+          <p class="text-sm text-slate-300 leading-relaxed">
+            When you pause for two full seconds after a key point, it feels long to you—but to your audience, it signals supreme authority and lets the message sink in.
+          </p>
+        </div>
+        <div class="glass-card rounded-2xl p-6 space-y-3">
+          <div class="w-10 h-10 rounded-xl bg-indigo-500/15 border border-indigo-500/30 flex items-center justify-center text-indigo-400 font-bold">02</div>
+          <h3 class="text-lg font-bold text-white">One Thought, One Pair of Eyes</h3>
+          <p class="text-sm text-slate-300 leading-relaxed">
+            Don't scan the room like a windshield wiper. Lock eyes with one listener for a full clause or sentence (3–4 seconds), pause, then shift to another section of the room.
+          </p>
+        </div>
+        <div class="glass-card rounded-2xl p-6 space-y-3">
+          <div class="w-10 h-10 rounded-xl bg-emerald-500/15 border border-emerald-500/30 flex items-center justify-center text-emerald-400 font-bold">03</div>
+          <h3 class="text-lg font-bold text-white">End Sentences on a Downbeat</h3>
+          <p class="text-sm text-slate-300 leading-relaxed">
+            Avoid accidental "upspeak" (raising your pitch at the end of declarative statements), which makes statements sound like hesitant questions. Land your final word firmly downward.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==================== TAB 2: 6-MODULE ACADEMY ==================== -->
+    <section id="tab-curriculum" class="hidden space-y-6">
+      <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+        <div>
+          <span class="text-xs font-bold uppercase tracking-wider text-orange-400">Structured Public Speaking Mastery</span>
+          <h2 class="text-2xl sm:text-3xl font-extrabold text-white mt-1">The 6-Pillar Speaker Curriculum</h2>
+          <p class="text-sm text-slate-300 mt-1">Study each module, test your skills in the interactive precision exercise, and pass the scenario check to earn XP.</p>
+        </div>
+        <div class="flex items-center gap-2">
+          <span id="curriculum-progress-pill" class="px-3.5 py-2 rounded-xl bg-slate-900 border border-slate-800 text-xs font-semibold text-emerald-400">
+            0 of 6 Completed
+          </span>
+        </div>
+      </div>
+
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
+        <div id="module-sidebar-list" class="lg:col-span-4 space-y-2.5"></div>
+
+        <div class="lg:col-span-8 glass-card rounded-3xl p-6 sm:p-8 space-y-6">
+          <div class="flex flex-wrap items-center justify-between gap-3 pb-4 border-b border-slate-800">
+            <div>
+              <span id="mod-category-badge" class="text-xs font-bold uppercase tracking-wider text-orange-400">MODULE 1 • VOCAL DELIVERY</span>
+              <h3 id="mod-title" class="text-xl sm:text-2xl font-extrabold text-white mt-1">Vocal Mastery: Pace, Pitch, Power &amp; Pause</h3>
+            </div>
+            <button type="button" id="mod-complete-btn" onclick="toggleCurrentModuleComplete()" class="px-4 py-2 rounded-xl text-xs font-bold border transition bg-slate-800 border-slate-700 text-slate-200">
+              Mark Module Complete (+50 XP)
+            </button>
+          </div>
+
+          <div id="mod-body" class="space-y-4 text-sm sm:text-base text-slate-200 leading-relaxed"></div>
+
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-4 pt-2">
+            <div class="p-4 rounded-2xl bg-rose-950/30 border border-rose-500/30 space-y-1.5">
+              <div class="text-xs font-bold uppercase tracking-wider text-rose-400 flex items-center gap-1.5">
+                <span>✗ Amateur Delivery</span>
+              </div>
+              <p id="mod-weak-example" class="text-sm text-slate-200 italic"></p>
+            </div>
+            <div class="p-4 rounded-2xl bg-emerald-950/30 border border-emerald-500/30 space-y-1.5">
+              <div class="text-xs font-bold uppercase tracking-wider text-emerald-400 flex items-center gap-1.5">
+                <span>✓ Master Orator Delivery</span>
+              </div>
+              <p id="mod-strong-example" class="text-sm text-slate-100 font-medium"></p>
+            </div>
+          </div>
+
+          <!-- Interactive In-Module Exercise Sandbox -->
+          <div class="p-5 rounded-2xl bg-slate-900/95 border border-orange-500/30 space-y-4">
+            <div class="flex flex-wrap items-center justify-between gap-2 border-b border-slate-800 pb-3">
+              <div>
+                <div class="text-xs font-bold uppercase tracking-wider text-orange-400">🎯 Interactive Module Exercise &amp; Precision Check</div>
+                <h4 id="mod-ex-title" class="text-base font-bold text-white mt-0.5">Live Cadence &amp; 2-Second Pause Precision Drill</h4>
+              </div>
+              <span id="mod-ex-score-badge" class="px-3 py-1 rounded-xl bg-slate-800 text-slate-300 text-xs font-bold">
+                Precision: Ready to Test
+              </span>
+            </div>
+            <div id="mod-exercise-sandbox" class="space-y-3 text-sm text-slate-200"></div>
+          </div>
+
+          <!-- Actionable Drill Box -->
+          <div class="p-4 rounded-2xl bg-indigo-950/40 border border-indigo-500/30 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+            <div class="space-y-1">
+              <div class="text-xs font-bold uppercase tracking-wider text-indigo-300">⚡ Full Studio Lab Integration</div>
+              <p id="mod-drill-text" class="text-sm text-slate-200"></p>
+            </div>
+            <button type="button" id="mod-tool-jump-btn" onclick="switchTab('analyzer')" class="shrink-0 px-4 py-2 rounded-xl bg-indigo-500 text-white text-xs font-bold transition">
+              Practice in Lab →
+            </button>
+          </div>
+
+          <!-- Interactive Module Quiz -->
+          <div class="pt-4 border-t border-slate-800 space-y-4">
+            <div class="flex items-center justify-between">
+              <h4 class="font-bold text-white text-base">🧠 Quick Scenario Check (+40 XP)</h4>
+              <span id="quiz-status-badge" class="text-xs text-slate-400">Select the strongest choice</span>
+            </div>
+            <p id="mod-quiz-question" class="text-sm font-medium text-slate-200"></p>
+            <div id="mod-quiz-options" class="space-y-2.5"></div>
+            <div id="mod-quiz-feedback" class="hidden p-4 rounded-xl text-sm"></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==================== TAB 3: SPEECH & PACE LAB ==================== -->
+    <section id="tab-analyzer" class="hidden space-y-6">
+      <div class="flex flex-col md:flex-row md:items-center justify-between gap-4">
+        <div>
+          <span class="text-xs font-bold uppercase tracking-wider text-orange-400">Interactive Teleprompter, WPM Pacer &amp; Filler Detector</span>
+          <h2 class="text-2xl sm:text-3xl font-extrabold text-white mt-1">Speech &amp; Pace Practice Studio</h2>
+          <p class="text-sm text-slate-300 mt-1">Paste or select a script, auto-inject stage pause cues, and practice with our live word-by-word pacer &amp; clarity analyzer.</p>
+        </div>
+        <div class="flex flex-wrap items-center gap-2">
+          <label for="sample-speech-select" class="text-xs font-medium text-slate-400">Load Script:</label>
+          <select id="sample-speech-select" onchange="loadSampleSpeech(this.value)" class="bg-slate-900 border border-slate-700 text-slate-100 text-xs rounded-xl px-3 py-2">
+            <option value="elevator">60s High-Impact Elevator Pitch</option>
+            <option value="ted">TED-Style Story Opening Hook</option>
+            <option value="executive">Executive Project Proposal (PREP)</option>
+            <option value="filler_demo">Filler-Heavy Draft (Test Analyzer)</option>
+          </select>
+          <button type="button" onclick="injectPauseCues()" class="px-3 py-2 rounded-xl bg-indigo-500/20 border border-indigo-500/40 text-indigo-300 text-xs font-semibold transition">
+            ✨ Auto-Insert Pause Cues
+          </button>
+        </div>
+      </div>
+
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
+        <div class="lg:col-span-7 glass-card rounded-3xl p-5 sm:p-6 space-y-4 flex flex-col">
+          <div class="flex flex-wrap items-center justify-between gap-3">
+            <div class="flex items-center gap-2">
+              <span class="text-sm font-bold text-white">Your Speech Script / Transcript</span>
+              <span id="script-word-badge" class="text-xs px-2.5 py-0.5 rounded-full bg-slate-800 text-slate-300">0 words</span>
+              <span id="script-est-time" class="text-xs px-2.5 py-0.5 rounded-full bg-orange-500/15 text-orange-300">~0:00 at 145 WPM</span>
+            </div>
+            <div class="flex flex-wrap items-center gap-3">
+              <div class="flex items-center gap-1.5">
+                <label for="target-wpm-slider" class="text-xs text-slate-400">Target WPM:</label>
+                <input id="target-wpm-slider" type="range" min="110" max="180" value="145" oninput="updateTargetWpm(this.value)" class="w-20" />
+                <span id="target-wpm-label" class="text-xs font-bold text-emerald-400">145</span>
+              </div>
+              <div class="flex items-center gap-1.5">
+                <label for="prompter-font-size" class="text-xs text-slate-400">Font:</label>
+                <input id="prompter-font-size" type="range" min="15" max="28" value="18" oninput="updatePrompterFontSize(this.value)" class="w-16" />
+              </div>
+            </div>
+          </div>
+
+          <textarea id="speech-script-input" rows="8" oninput="analyzeScriptText()" class="w-full rounded-2xl bg-slate-950/90 border border-slate-800 p-4 text-slate-100 leading-relaxed resize-y" style="font-size: 18px;" placeholder="Paste your speech here or speak using the Live Practice Timer below..."></textarea>
+
+          <div class="p-4 rounded-2xl bg-slate-900/95 border border-slate-800 space-y-4">
+            <div class="flex flex-wrap items-center justify-between gap-3">
+              <div class="flex items-center gap-3">
+                <div class="text-center px-3.5 py-2 rounded-xl bg-slate-950 border border-slate-800 min-w-[92px]">
+                  <div class="text-[10px] font-bold uppercase tracking-wider text-slate-400">ELAPSED</div>
+                  <div id="studio-timer-display" class="text-xl font-extrabold font-mono text-white">00:00</div>
+                </div>
+                <div class="text-center px-3.5 py-2 rounded-xl bg-slate-950 border border-slate-800 min-w-[92px]">
+                  <div class="text-[10px] font-bold uppercase tracking-wider text-slate-400">PACE (WPM)</div>
+                  <div id="studio-wpm-display" class="text-xl font-extrabold text-orange-400">145</div>
+                </div>
+                <div class="hidden sm:block">
+                  <div class="text-xs font-semibold text-white" id="studio-pace-verdict">Ready to Practice</div>
+                  <div class="text-xs text-slate-400" id="studio-mic-status">Click "Start Practice" to time your delivery</div>
+                </div>
+              </div>
+
+              <div class="flex items-center gap-2">
+                <button type="button" id="studio-start-btn" onclick="toggleStudioPractice()" class="px-4 py-2.5 rounded-xl bg-orange-500 text-white text-xs sm:text-sm font-bold shadow-lg transition flex items-center gap-1.5">
+                  <span id="studio-start-label">▶ Start Practice Timer</span>
+                </button>
+                <button type="button" id="studio-mic-btn" onclick="toggleSpeechRecognition()" class="px-3.5 py-2.5 rounded-xl bg-slate-800 text-slate-200 text-xs sm:text-sm font-semibold border border-slate-700 transition">
+                  🎙️ <span id="studio-mic-label">Live Dictation</span>
+                </button>
+                <button type="button" onclick="resetStudioPractice()" class="px-3 py-2.5 rounded-xl bg-slate-800 text-slate-300 text-xs font-semibold border border-slate-700 transition">
+                  Reset
+                </button>
+              </div>
+            </div>
+
+            <div class="space-y-1">
+              <div class="flex justify-between text-[11px] text-slate-400 font-medium">
+                <span>Slow (&lt;115 WPM)</span>
+                <span class="text-emerald-400 font-semibold">★ Optimal Conversational Zone (130–160 WPM)</span>
+                <span>Rushed (&gt;175 WPM)</span>
+              </div>
+              <div class="relative w-full h-3 rounded-full bg-slate-950 border border-slate-800 overflow-hidden">
+                <div id="wpm-gauge-marker" class="h-full bg-gradient-to-r rounded-full transition-all" style="width: 50%"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="lg:col-span-5 glass-card rounded-3xl p-5 sm:p-6 space-y-5 flex flex-col justify-between">
+          <div class="space-y-4">
+            <div class="flex items-center justify-between border-b border-slate-800 pb-3">
+              <div>
+                <h3 class="text-base font-bold text-white">Real-Time Clarity &amp; Filler Audit</h3>
+                <p class="text-xs text-slate-400">Detects filler words, hedging phrases, syllables &amp; sentence length</p>
+              </div>
+              <span id="clarity-score-badge" class="px-3 py-1 rounded-xl bg-emerald-500/15 border border-emerald-500/30 text-emerald-300 text-xs font-extrabold">
+                94 / 100 Clarity
+              </span>
+            </div>
+
+            <div class="grid grid-cols-2 sm:grid-cols-4 gap-2 text-center">
+              <div class="p-2.5 rounded-2xl bg-slate-900/90 border border-slate-800">
+                <div class="text-[10px] text-slate-400 font-medium">Fillers</div>
+                <div id="diag-filler-count" class="text-lg font-extrabold text-amber-400 mt-0.5">0</div>
+                <div id="diag-filler-density" class="text-[10px] text-slate-400">0.0% density</div>
+              </div>
+              <div class="p-2.5 rounded-2xl bg-slate-900/90 border border-slate-800">
+                <div class="text-[10px] text-slate-400 font-medium">Hedges</div>
+                <div id="diag-hedge-count" class="text-lg font-extrabold text-rose-400 mt-0.5">0</div>
+                <div id="diag-hedge-density" class="text-[10px] text-slate-400">0.0% density</div>
+              </div>
+              <div class="p-2.5 rounded-2xl bg-slate-900/90 border border-slate-800">
+                <div class="text-[10px] text-slate-400 font-medium">Pause Cues</div>
+                <div id="diag-pause-count" class="text-lg font-extrabold text-indigo-400 mt-0.5">0</div>
+                <div id="diag-syllable-rate" class="text-[10px] text-slate-400">0 syllables</div>
+              </div>
+              <div class="p-2.5 rounded-2xl bg-slate-900/90 border border-slate-800">
+                <div class="text-[10px] text-slate-400 font-medium">Words / Sent</div>
+                <div id="diag-avg-sentence" class="text-lg font-extrabold text-emerald-400 mt-0.5">0.0</div>
+                <div id="diag-runon-count" class="text-[10px] text-slate-400">0 long (&gt;25w)</div>
+              </div>
+            </div>
+
+            <div class="space-y-2">
+              <div class="flex items-center justify-between text-xs">
+                <span class="font-semibold text-slate-300">Flagged Fillers &amp; Weak Phrases:</span>
+                <button type="button" onclick="cleanFillersFromScript()" class="text-orange-400 font-semibold underline">
+                  Strip All Fillers Automatically
+                </button>
+              </div>
+              <div id="filler-tags-container" class="flex flex-wrap gap-1.5 min-h-[34px] p-2.5 rounded-xl bg-slate-950/80 border border-slate-800"></div>
+            </div>
+
+            <div class="space-y-1.5">
+              <div class="text-xs font-semibold text-slate-300 flex flex-wrap items-center justify-between gap-1">
+                <span>Live Pacer &amp; Annotated Delivery Map:</span>
+                <span id="pacer-live-badge" class="text-[11px] px-2 py-0.5 rounded bg-slate-900 text-slate-400 border border-slate-800">Pacer Standby</span>
+              </div>
+              <div class="text-[11px] text-slate-400 flex flex-wrap gap-2">
+                <span><span class="text-orange-400">■</span> Active Pacer Word</span>
+                <span><span class="text-amber-400">■</span> Filler</span>
+                <span><span class="text-rose-400">■</span> Hedge</span>
+                <span><span class="text-indigo-400">■</span> Pause Cue</span>
+              </div>
+              <div id="annotated-script-preview" class="p-4 rounded-2xl bg-slate-950/90 border border-slate-800 text-sm leading-relaxed max-h-56 overflow-y-auto text-slate-200"></div>
+            </div>
+          </div>
+
+          <div class="pt-3 border-t border-slate-800 flex items-center justify-between gap-3">
+            <span class="text-xs text-slate-400">Save this run to track your WPM &amp; clarity progress</span>
+            <button type="button" onclick="logStudioSession()" class="px-4 py-2 rounded-xl bg-emerald-500 text-slate-950 font-bold text-xs transition">
+              ✓ Log Practice Run (+30 XP)
+            </button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==================== TAB 4: IMPROMPTU ARENA ==================== -->
+    <section id="tab-impromptu" class="hidden space-y-6">
+      <div class="flex flex-col md:flex-row md:items-center justify-between gap-4">
+        <div>
+          <span class="text-xs font-bold uppercase tracking-wider text-orange-400">Think on Your Feet • Toastmasters Table Topics Style</span>
+          <h2 class="text-2xl sm:text-3xl font-extrabold text-white mt-1">2-Minute Impromptu Speaking Arena</h2>
+          <p class="text-sm text-slate-300 mt-1">Draw a random prompt, take 30 seconds to organize 3 bullet points, and speak for 1 to 2 minutes following the traffic-light signals.</p>
+        </div>
+        <div class="flex flex-wrap items-center gap-2">
+          <select id="impromptu-category" onchange="generateImpromptuPrompt()" class="bg-slate-900 border border-slate-700 text-slate-100 text-xs rounded-xl px-3.5 py-2.5">
+            <option value="all">All Categories (Mixed)</option>
+            <option value="leadership">Leadership &amp; Executive Presence</option>
+            <option value="tech">Technology, AI &amp; Future Trends</option>
+            <option value="persuasion">Persuasive &amp; Debate Prompts</option>
+            <option value="story">Personal Storytelling &amp; Values</option>
+          </select>
+          <button type="button" onclick="generateImpromptuPrompt()" class="px-4 py-2.5 rounded-xl bg-orange-500 text-white text-xs font-bold transition shadow-lg">
+            🎲 Draw New Prompt
+          </button>
+        </div>
+      </div>
+
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
+        <div id="impromptu-stage-card" class="lg:col-span-7 glass-card rounded-3xl p-6 sm:p-8 space-y-6 border-2 border-slate-800 transition-colors">
+          <div class="flex items-center justify-between">
+            <span id="impromptu-cat-badge" class="px-3 py-1 rounded-full bg-orange-500/15 border border-orange-500/30 text-orange-300 text-xs font-bold uppercase">
+              Leadership &amp; Executive Presence
+            </span>
+            <span id="impromptu-light-label" class="text-xs font-bold px-3 py-1 rounded-full bg-slate-800 text-slate-300">
+              ⚪ Stage Light: Standby
+            </span>
+          </div>
+
+          <div class="p-6 rounded-2xl bg-slate-950/90 border border-slate-800 min-h-[120px] flex items-center">
+            <h3 id="impromptu-prompt-text" class="text-xl sm:text-2xl font-bold text-white leading-snug">
+              "Tell us about a time a project or plan went off the rails—and the single most important lesson it taught you about leadership."
+            </h3>
+          </div>
+
+          <div class="grid grid-cols-1 sm:grid-cols-12 gap-4 items-center p-5 rounded-2xl bg-slate-900/90 border border-slate-800">
+            <div class="sm:col-span-5 flex items-center gap-4">
+              <div class="flex flex-col gap-2 p-2 rounded-xl bg-slate-950 border border-slate-800">
+                <div id="light-green" class="w-4 h-4 rounded-full bg-emerald-950 border border-emerald-500/30 transition-all"></div>
+                <div id="light-yellow" class="w-4 h-4 rounded-full bg-amber-950 border border-amber-500/30 transition-all"></div>
+                <div id="light-red" class="w-4 h-4 rounded-full bg-rose-950 border border-rose-500/30 transition-all"></div>
+              </div>
+              <div>
+                <div id="impromptu-mode-label" class="text-xs font-bold uppercase tracking-wider text-slate-400">SPEAKING TIMER</div>
+                <div id="impromptu-timer-digits" class="text-3xl sm:text-4xl font-extrabold font-mono text-white">00:00</div>
+              </div>
+            </div>
+
+            <div class="sm:col-span-7 flex flex-wrap items-center justify-end gap-2">
+              <button type="button" onclick="startImpromptuTimer('prep')" class="px-3.5 py-2.5 rounded-xl bg-indigo-500/20 border border-indigo-500/40 text-indigo-300 text-xs font-bold transition">
+                ⏳ 30s Prep Timer
+              </button>
+              <button type="button" id="impromptu-speak-btn" onclick="startImpromptuTimer('speak')" class="px-4 py-2.5 rounded-xl bg-orange-500 text-white text-xs sm:text-sm font-bold transition shadow-lg">
+                🎙️ Start 2-Min Speech
+              </button>
+              <button type="button" onclick="stopImpromptuTimer()" class="px-3 py-2.5 rounded-xl bg-slate-800 text-slate-300 text-xs font-semibold border border-slate-700 transition">
+                Stop / Reset
+              </button>
+            </div>
+          </div>
+
+          <div class="grid grid-cols-3 gap-2 text-center text-xs">
+            <div class="p-2.5 rounded-xl bg-emerald-950/30 border border-emerald-500/20 text-emerald-300">
+              <strong>1:00 Green</strong> • Qualified! Keep developing your example.
+            </div>
+            <div class="p-2.5 rounded-xl bg-amber-950/30 border border-amber-500/20 text-amber-300">
+              <strong>1:30 Yellow</strong> • Transition to your final takeaway.
+            </div>
+            <div class="p-2.5 rounded-xl bg-rose-950/30 border border-rose-500/20 text-rose-300">
+              <strong>2:00 Red</strong> • Land your final sentence with authority.
+            </div>
+          </div>
+        </div>
+
+        <div class="lg:col-span-5 glass-card rounded-3xl p-6 space-y-5 flex flex-col justify-between">
+          <div class="space-y-4">
+            <h3 class="text-base font-bold text-white">30-Second PREP Mental Blueprint</h3>
+            <p class="text-xs text-slate-300">Never start speaking without knowing your landing spot. Jot 3–5 trigger words below during your 30-second prep:</p>
+
+            <div class="space-y-2.5 text-xs">
+              <div class="p-3 rounded-xl bg-slate-900/90 border border-slate-800">
+                <span class="font-bold text-orange-400">P — Point (First 15s):</span> State your direct answer in one crisp sentence.
+              </div>
+              <div class="p-3 rounded-xl bg-slate-900/90 border border-slate-800">
+                <span class="font-bold text-amber-400">R — Reason (Next 20s):</span> Why is this true? Give the core principle.
+              </div>
+              <div class="p-3 rounded-xl bg-slate-900/90 border border-slate-800">
+                <span class="font-bold text-emerald-400">E — Example (45s):</span> Tell one brief, concrete story or real metric.
+              </div>
+              <div class="p-3 rounded-xl bg-slate-900/90 border border-slate-800">
+                <span class="font-bold text-indigo-400">P — Point Restated (15s):</span> Tie the story back to your opening thesis.
+              </div>
+            </div>
+
+            <textarea id="impromptu-notes" rows="3" class="w-full rounded-xl bg-slate-950 border border-slate-800 p-3 text-xs text-slate-200" placeholder="Quick bullet keywords for your 30-second prep..."></textarea>
+
+            <div class="pt-2 border-t border-slate-800 space-y-2">
+              <div class="text-xs font-bold text-white">Post-Speech Self-Reflection Checklist:</div>
+              <label class="flex items-center gap-2 text-xs text-slate-300">
+                <input type="checkbox" id="check-hook" />
+                <span>Opened without apologizing or saying "So, um, yeah..."</span>
+              </label>
+              <label class="flex items-center gap-2 text-xs text-slate-300">
+                <input type="checkbox" id="check-example" />
+                <span>Included a specific story or concrete example</span>
+              </label>
+              <label class="flex items-center gap-2 text-xs text-slate-300">
+                <input type="checkbox" id="check-time" />
+                <span>Finished between 1:00 (Green) and 2:05 (Red)</span>
+              </label>
+            </div>
+
+            <div id="impromptu-scorecard" class="p-3.5 rounded-2xl bg-slate-950/90 border border-slate-800 space-y-1.5 text-xs">
+              <div class="flex items-center justify-between font-bold text-slate-200">
+                <span>⏱️ Precision Timing Diagnostics</span>
+                <span id="imp-score-badge" class="text-orange-400">Awaiting Run</span>
+              </div>
+              <p id="imp-score-detail" class="text-slate-400 text-[11px]">Run the 2-Minute Speech clock and click Stop when you finish your final sentence to get exact Toastmasters zone accuracy.</p>
+            </div>
+          </div>
+
+          <button type="button" onclick="completeImpromptuRep()" class="w-full py-3 rounded-xl bg-emerald-500 text-slate-950 font-bold text-xs sm:text-sm transition">
+            ✓ Log Impromptu Rep (+35 XP)
+          </button>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==================== TAB 5: SPEECH BUILDER ==================== -->
+    <section id="tab-architect" class="hidden space-y-6">
+      <div class="flex flex-col md:flex-row md:items-center justify-between gap-4">
+        <div>
+          <span class="text-xs font-bold uppercase tracking-wider text-orange-400">Guided Persuasive Storytelling</span>
+          <h2 class="text-2xl sm:text-3xl font-extrabold text-white mt-1">Speech Framework Architect</h2>
+          <p class="text-sm text-slate-300 mt-1">Select a world-class rhetorical framework, fill in the guided blocks, and export your talk directly to the Teleprompter Lab.</p>
+        </div>
+        <div class="flex flex-wrap gap-2">
+          <button type="button" onclick="selectFramework('prep')" id="fw-btn-prep" class="fw-btn px-3.5 py-2 rounded-xl text-xs font-bold bg-orange-500 text-white transition">
+            PREP (Executive / Q&amp;A)
+          </button>
+          <button type="button" onclick="selectFramework('ted')" id="fw-btn-ted" class="fw-btn px-3.5 py-2 rounded-xl text-xs font-bold bg-slate-900 border border-slate-800 text-slate-300 transition">
+            Hook-Story-Takeaway (TED)
+          </button>
+          <button type="button" onclick="selectFramework('pas')" id="fw-btn-pas" class="fw-btn px-3.5 py-2 rounded-xl text-xs font-bold bg-slate-900 border border-slate-800 text-slate-300 transition">
+            Problem-Agitate-Solution (Pitch)
+          </button>
+          <button type="button" onclick="selectFramework('wsn')" id="fw-btn-wsn" class="fw-btn px-3.5 py-2 rounded-xl text-xs font-bold bg-slate-900 border border-slate-800 text-slate-300 transition">
+            What? So What? Now What?
+          </button>
+        </div>
+      </div>
+
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
+        <div class="lg:col-span-7 glass-card rounded-3xl p-6 space-y-4">
+          <div class="flex items-center justify-between pb-3 border-b border-slate-800">
+            <div>
+              <h3 id="fw-title" class="text-lg font-bold text-white">The PREP Framework (Point • Reason • Example • Point)</h3>
+              <p id="fw-subtitle" class="text-xs text-slate-400">Best for executive briefings, interviews, and clear persuasive answers</p>
+            </div>
+            <button type="button" onclick="fillFrameworkSample()" class="text-xs font-semibold text-orange-400 underline">
+              Load Example
+            </button>
+          </div>
+
+          <div id="fw-inputs-container" class="space-y-4"></div>
+        </div>
+
+        <div class="lg:col-span-5 glass-card rounded-3xl p-6 flex flex-col justify-between space-y-5">
+          <div class="space-y-4">
+            <div class="flex items-center justify-between border-b border-slate-800 pb-3">
+              <h3 class="text-base font-bold text-white">Compiled Stage Script</h3>
+              <span id="fw-compiled-stats" class="text-xs px-2.5 py-1 rounded-lg bg-slate-900 text-orange-300 font-semibold">0 words • ~0 sec</span>
+            </div>
+            <div id="fw-compiled-preview" class="p-4 rounded-2xl bg-slate-950/90 border border-slate-800 text-sm text-slate-200 leading-relaxed min-h-[260px] whitespace-pre-line"></div>
+          </div>
+
+          <div class="flex flex-wrap items-center gap-2.5 pt-3 border-t border-slate-800">
+            <button type="button" onclick="sendBuilderToTeleprompter()" class="flex-1 py-3 px-4 rounded-xl bg-orange-500 text-white font-bold text-xs sm:text-sm transition shadow-lg">
+              🎙️ Send to Speech &amp; Pace Lab
+            </button>
+            <button type="button" onclick="copyCompiledScript()" class="py-3 px-4 rounded-xl bg-slate-800 text-slate-200 font-semibold text-xs sm:text-sm border border-slate-700 transition">
+              📋 Copy Script
+            </button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==================== TAB 6: VOCAL & CALM GYM ==================== -->
+    <section id="tab-warmup" class="hidden space-y-6">
+      <div>
+        <span class="text-xs font-bold uppercase tracking-wider text-orange-400">Pre-Stage Physiology &amp; Diction</span>
+        <h2 class="text-2xl sm:text-3xl font-extrabold text-white mt-1">Vocal Warm-Up &amp; Nerve-Calming Gym</h2>
+        <p class="text-sm text-slate-300 mt-1">Spend 2 minutes here before any presentation, interview, or keynote to steady your breathing and sharpen your articulation.</p>
+      </div>
+
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
+        <div class="lg:col-span-5 glass-card rounded-3xl p-6 flex flex-col items-center justify-between text-center space-y-6">
+          <div class="space-y-1">
+            <span class="text-xs font-bold uppercase tracking-wider text-emerald-400">Vagus Nerve Reset</span>
+            <h3 class="text-xl font-bold text-white">4-4-4-4 Box Breathing Pacer</h3>
+            <p class="text-xs text-slate-300 max-w-sm">Used by Navy SEALs and keynote speakers to lower heart rate and steady a shaky voice in 60 seconds.</p>
+          </div>
+
+          <div class="relative w-52 h-52 flex items-center justify-center my-2">
+            <div id="breath-outer-ring" class="absolute inset-0 rounded-full border-2 border-dashed border-slate-700"></div>
+            <div id="breath-circle" class="breath-circle w-28 h-28 rounded-full from-emerald-500/30 border-2 border-emerald-400 flex flex-col items-center justify-center shadow-2xl">
+              <span id="breath-phase-text" class="text-sm font-extrabold text-white tracking-wide">Ready</span>
+              <span id="breath-count-text" class="text-2xl font-mono font-bold text-emerald-300 mt-0.5">4s</span>
+            </div>
+          </div>
+
+          <div class="w-full space-y-3">
+            <div class="text-xs text-slate-400" id="breath-cycle-counter">Cycles completed: 0 / 4</div>
+            <div class="flex items-center justify-center gap-3">
+              <button type="button" id="breath-toggle-btn" onclick="toggleBoxBreathing()" class="px-5 py-2.5 rounded-xl bg-emerald-500 text-slate-950 font-bold text-xs sm:text-sm transition">
+                ▶ Start 4-4-4-4 Breathing
+              </button>
+              <button type="button" onclick="stopBoxBreathing()" class="px-3.5 py-2.5 rounded-xl bg-slate-800 text-slate-300 text-xs font-semibold border border-slate-700 transition">
+                Reset
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <div class="lg:col-span-7 glass-card rounded-3xl p-6 space-y-5 flex flex-col justify-between">
+          <div class="space-y-4">
+            <div class="flex flex-wrap items-center justify-between gap-2 border-b border-slate-800 pb-3">
+              <div>
+                <span class="text-xs font-bold uppercase tracking-wider text-orange-400">Diction &amp; Jaw Looseners</span>
+                <h3 class="text-xl font-bold text-white">15-Second Articulation Drills</h3>
+              </div>
+              <button type="button" onclick="nextTongueTwister()" class="px-3.5 py-2 rounded-xl bg-slate-800 text-orange-300 text-xs font-bold border border-slate-700 transition">
+                ↻ Next Drill (1 of 6)
+              </button>
+            </div>
+
+            <div class="p-5 rounded-2xl bg-slate-950/90 border border-slate-800 space-y-3">
+              <div class="flex items-center justify-between">
+                <span id="tt-target-badge" class="text-xs font-bold px-2.5 py-1 rounded-lg bg-orange-500/15 text-orange-300">
+                  Target: Labial Plosives (P &amp; B)
+                </span>
+                <span id="tt-difficulty" class="text-xs text-slate-400">Repeat 3x Crisp &amp; Loud</span>
+              </div>
+              <p id="tt-phrase" class="text-lg sm:text-2xl font-bold text-white leading-relaxed">
+                "Peter Piper picked a peck of pickled peppers; a peck of pickled peppers Peter Piper picked."
+              </p>
+              <p id="tt-coaching-tip" class="text-xs text-slate-400">
+                Coach Tip: Over-exaggerate lip movement so every 'P' pops cleanly from the front of your mouth rather than mumbling in your throat.
+              </p>
+            </div>
+
+            <div class="p-4 rounded-2xl bg-slate-900/90 border border-slate-800 flex flex-wrap items-center justify-between gap-4">
+              <div class="flex items-center gap-3">
+                <div class="px-3.5 py-2 rounded-xl bg-slate-950 border border-slate-800 text-center">
+                  <div class="text-[10px] text-slate-400 font-bold uppercase">DRILL TIMER</div>
+                  <div id="tt-timer-display" class="text-xl font-mono font-extrabold text-amber-400">15.0s</div>
+                </div>
+                <div class="text-xs text-slate-300 max-w-xs">
+                  Read the phrase aloud 3 times clearly before the 15-second clock hits zero!
+                </div>
+              </div>
+              <button type="button" id="tt-start-btn" onclick="startTwisterDrill()" class="px-4 py-2.5 rounded-xl bg-orange-500 text-white font-bold text-xs sm:text-sm transition">
+                ⚡ Start 15s Challenge
+              </button>
+            </div>
+          </div>
+
+          <div class="p-4 rounded-2xl bg-indigo-950/30 border border-indigo-500/30 space-y-2">
+            <div class="text-xs font-bold uppercase tracking-wider text-indigo-300">Pre-Stage 30-Second Body Check</div>
+            <div class="grid grid-cols-1 sm:grid-cols-3 gap-2 text-xs text-slate-200">
+              <div class="p-2 rounded-lg bg-slate-900/70">1. Roll shoulders back &amp; drop them 1 inch</div>
+              <div class="p-2 rounded-lg bg-slate-900/70">2. Uncross arms; rest hands at navel height</div>
+              <div class="p-2 rounded-lg bg-slate-900/70">3. Plant both feet shoulder-width apart</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- Speaker Login & Profile Modal -->
+  <div id="login-modal" class="fixed inset-0 z-50 hidden bg-slate-950/85 flex items-center justify-center p-4">
+    <div class="glass-card rounded-3xl max-w-md w-full p-6 sm:p-7 border border-slate-700 shadow-2xl space-y-5">
+      <div class="flex items-center justify-between border-b border-slate-800 pb-3">
+        <div class="flex items-center gap-3">
+          <div class="w-10 h-10 rounded-xl bg-gradient-to-br flex items-center justify-center text-white font-bold text-lg shadow-lg">
+            🎙️
+          </div>
+          <div>
+            <h3 class="text-lg font-bold text-white">Speaker Login &amp; Profile</h3>
+            <p class="text-xs text-slate-400">Track your personal XP, completed modules &amp; WPM stats</p>
+          </div>
+        </div>
+        <button type="button" id="login-modal-close-btn" onclick="closeLoginModal()" class="p-1.5 rounded-lg bg-slate-800 text-slate-300 text-xs font-bold">✕</button>
+      </div>
+
+      <form id="login-form" onsubmit="handleSpeakerLogin(event)" class="space-y-4">
+        <div class="space-y-1.5">
+          <label for="login-name-input" class="block text-xs font-bold uppercase tracking-wider text-slate-300">Your Name</label>
+          <input id="login-name-input" type="text" required maxlength="32" placeholder="Enter your name (e.g., Gavish, Sarah)" class="w-full px-4 py-3 rounded-xl bg-slate-950 border border-slate-700 text-sm text-white" />
+        </div>
+
+        <div class="space-y-1.5">
+          <label for="login-goal-select" class="block text-xs font-bold uppercase tracking-wider text-slate-300">Primary Speaking Track</label>
+          <select id="login-goal-select" class="w-full px-3.5 py-2.5 rounded-xl bg-slate-950 border border-slate-700 text-xs sm:text-sm text-slate-200">
+            <option value="Executive & Leadership Presence">Executive &amp; Leadership Presence</option>
+            <option value="TED-Style Keynotes & Storytelling">TED-Style Keynotes &amp; Storytelling</option>
+            <option value="Interviews & Impromptu Q&A">Interviews &amp; Impromptu Q&amp;A</option>
+            <option value="Overcoming Stage Fright & Fillers">Overcoming Stage Fright &amp; Fillers</option>
+          </select>
+        </div>
+
+        <div id="saved-profiles-section" class="hidden space-y-1.5 pt-1">
+          <div class="text-[11px] font-bold uppercase tracking-wider text-slate-400">Saved Speaker Profiles on This Device:</div>
+          <div id="saved-profiles-list" class="flex flex-wrap gap-1.5"></div>
+        </div>
+
+        <div class="flex items-center justify-between gap-2 pt-2 border-t border-slate-800">
+          <button type="button" onclick="resetCurrentUserProgress()" class="px-3 py-2 rounded-xl bg-rose-950/50 border border-rose-500/30 text-rose-300 text-xs font-semibold transition">
+            Reset My Progress
+          </button>
+          <div class="flex items-center gap-2">
+            <button type="button" id="logout-btn" onclick="handleSpeakerLogout()" class="hidden px-3 py-2.5 rounded-xl bg-slate-800 text-slate-300 text-xs font-semibold transition">
+              Sign Out
+            </button>
+            <button type="submit" id="login-submit-btn" class="px-5 py-2.5 rounded-xl bg-gradient-to-r text-white text-xs sm:text-sm font-bold shadow-lg transition">
+              Save &amp; Continue →
+            </button>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- iPhone & Mac Installation Modal -->
+  <div id="ios-install-modal" class="fixed inset-0 z-50 hidden bg-slate-950/80 flex items-center justify-center p-4">
+    <div class="glass-card rounded-3xl max-w-lg w-full p-6 sm:p-7 border border-slate-700 shadow-2xl space-y-5">
+      <div class="flex items-center justify-between border-b border-slate-800 pb-3">
+        <div class="flex items-center gap-2.5">
+          <span class="text-2xl">📱</span>
+          <div>
+            <h3 class="text-lg font-bold text-white">Install OratorStudio on iPhone &amp; Mac</h3>
+            <p class="text-xs text-slate-400">iOS Home Screen &amp; macOS Safari Dock Web App Ready</p>
+          </div>
+        </div>
+        <button type="button" id="ios-modal-close-btn" onclick="closeIosModal()" class="p-1.5 rounded-lg bg-slate-800 text-slate-300 text-xs font-bold">✕</button>
+      </div>
+
+      <div class="space-y-3 text-xs sm:text-sm text-slate-200 leading-relaxed">
+        <div class="p-3.5 rounded-2xl bg-slate-900/90 border border-slate-800 space-y-1">
+          <div class="font-bold text-orange-400">1. Install on iPhone (Safari → Add to Home Screen)</div>
+          <p class="text-slate-300 text-xs">Open your GitHub Pages link in <strong>Safari</strong> on iPhone, tap the <strong>Share</strong> icon (square with upward arrow), scroll down and tap <strong>Add to Home Screen</strong>, ensure <strong>Open as Web App</strong> is enabled, and tap <strong>Add</strong>.</p>
+        </div>
+
+        <div class="p-3.5 rounded-2xl bg-slate-900/90 border border-slate-800 space-y-1">
+          <div class="font-bold text-emerald-400">2. Install on Mac (Safari → File → Add to Dock)</div>
+          <p class="text-slate-300 text-xs">Open your GitHub Pages link in <strong>Safari</strong> on your Mac, choose <strong>File &gt; Add to Dock</strong> from the menu bar (or click Share &gt; Add to Dock), and click <strong>Add</strong> to launch OratorStudio as a standalone Mac app from your Dock or Spotlight.</p>
+        </div>
+      </div>
+
+      <div class="flex justify-end pt-2 border-t border-slate-800">
+        <button type="button" onclick="closeIosModal()" class="px-5 py-2.5 rounded-xl bg-orange-500 text-white text-xs font-bold transition">
+          Got It
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Toast Notification Banner -->
+  <div id="toast-container" class="fixed bottom-5 right-5 z-50 hidden max-w-sm">
+    <div class="px-4 py-3 rounded-2xl bg-slate-900/95 border border-orange-500/50 shadow-2xl flex items-center gap-3 text-sm text-white">
+      <span id="toast-icon" class="text-lg">✨</span>
+      <span id="toast-message" class="font-medium">Action completed!</span>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <footer class="border-t border-slate-800/80 py-5 mt-12 text-center text-xs text-slate-400">
+    <div class="max-w-7xl mx-auto px-4 flex flex-col sm:flex-row items-center justify-between gap-2">
+      <span><strong>OratorStudio</strong> — Interactive Public Speaking Academy &amp; Delivery Coach</span>
+      <span>Practice Tip: Record 2 minutes a day. Consistency beats perfection.</span>
+    </div>
+  </footer>
+  <script src="app.js"></script>
+</body>
+</html>
